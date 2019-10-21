@@ -1,8 +1,8 @@
 package com.chetdeva.githubit.ui
 
-import android.arch.paging.PagedListAdapter
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.chetdeva.githubit.R
 import com.chetdeva.githubit.api.Item

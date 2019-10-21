@@ -1,7 +1,7 @@
 package com.chetdeva.githubit.data
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.paging.PageKeyedDataSource
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.PageKeyedDataSource
 import com.chetdeva.githubit.api.GithubApiService
 import com.chetdeva.githubit.api.Item
 import java.util.concurrent.Executor

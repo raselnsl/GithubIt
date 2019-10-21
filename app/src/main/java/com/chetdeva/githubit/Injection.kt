@@ -1,6 +1,6 @@
 package com.chetdeva.githubit
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import android.content.Context
 import com.chetdeva.githubit.api.GithubApi
 import com.chetdeva.githubit.api.GithubApiService

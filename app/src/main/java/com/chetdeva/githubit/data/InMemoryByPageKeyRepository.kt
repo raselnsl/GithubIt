@@ -1,9 +1,9 @@
 package com.chetdeva.githubit.data
 
-import android.arch.lifecycle.Transformations.switchMap
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
-import android.support.annotation.MainThread
+import androidx.lifecycle.Transformations.switchMap
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import androidx.annotation.MainThread
 import com.chetdeva.githubit.api.GithubApiService
 import com.chetdeva.githubit.api.Item
 import java.util.concurrent.Executor
