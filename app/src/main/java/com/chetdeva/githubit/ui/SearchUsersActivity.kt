@@ -9,15 +9,27 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
-import com.chetdeva.githubit.Injection
 import com.chetdeva.githubit.R
 import com.chetdeva.githubit.api.Item
 import com.chetdeva.githubit.data.NetworkState
 import com.chetdeva.githubit.util.GlideApp
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.security.ProviderInstaller
 import kotlinx.android.synthetic.main.activity_search_repositories.*
+import java.security.KeyManagementException
+import java.security.NoSuchAlgorithmException
+import javax.net.ssl.SSLContext
+
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
 
-class SearchUsersActivity : AppCompatActivity() {
+class SearchUsersActivity : AppCompatActivity(), KodeinAware {
+
+    override val kodein by kodein()
+    private val factory: MainViewModelFactory by instance()
 
     companion object {
         const val KEY_GITHUB_USER = "github_user"
@@ -31,6 +43,9 @@ class SearchUsersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_repositories)
+
+        setUpSsl()
+
         list = findViewById(R.id.list)
 
         model = viewModel()
@@ -41,8 +56,7 @@ class SearchUsersActivity : AppCompatActivity() {
     }
 
     private fun viewModel(): SearchUsersViewModel {
-        val viewModelFactory = Injection.provideViewModelFactory()
-        return ViewModelProviders.of(this, viewModelFactory)[SearchUsersViewModel::class.java]
+        return ViewModelProviders.of(this, factory).get(SearchUsersViewModel::class.java)
     }
 
     private fun initAdapter() {
@@ -72,9 +86,7 @@ class SearchUsersActivity : AppCompatActivity() {
         outState.putString(KEY_GITHUB_USER, model.currentSearchQuery())
     }
 
-    /**
-     * Search configuration
-     */
+
     private var searchView: SearchView? = null
 
     private var onQueryTextListener: SearchView.OnQueryTextListener? = object : SearchView.OnQueryTextListener {
@@ -127,5 +139,23 @@ class SearchUsersActivity : AppCompatActivity() {
     override fun onDestroy() {
         onQueryTextListener = null
         super.onDestroy()
+    }
+    private fun setUpSsl() {
+        try {
+            ProviderInstaller.installIfNeeded(applicationContext)
+            val sslContext: SSLContext
+            sslContext = SSLContext.getInstance("TLSv1.2")
+            sslContext.init(null, null, null)
+            sslContext.createSSLEngine()
+        } catch (e: GooglePlayServicesRepairableException) {
+            e.printStackTrace()
+        } catch (e: GooglePlayServicesNotAvailableException) {
+            e.printStackTrace()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        } catch (e: KeyManagementException) {
+            e.printStackTrace()
+        }
+
     }
 }
