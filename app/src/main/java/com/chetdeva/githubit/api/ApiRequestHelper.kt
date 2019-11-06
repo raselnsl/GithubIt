@@ -5,10 +5,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 
-/**
- * @author chetansachdeva
- */
-
 object ApiRequestHelper {
 
     inline fun <T> syncRequest(request: Call<T>,
