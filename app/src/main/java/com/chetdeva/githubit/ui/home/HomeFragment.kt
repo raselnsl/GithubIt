@@ -38,6 +38,7 @@ class HomeFragment : Fragment(), KodeinAware {
 
         list = root.findViewById(R.id.list)
         swipe_refresh = root.findViewById(R.id.swipe_refresh)
+
         initAdapter()
         initSwipeToRefresh()
 

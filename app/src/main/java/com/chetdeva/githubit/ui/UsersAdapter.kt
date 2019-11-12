@@ -9,9 +9,6 @@ import com.chetdeva.githubit.api.Item
 import com.chetdeva.githubit.data.NetworkState
 import com.chetdeva.githubit.util.GlideRequests
 
-/**
- * Adapter for the list of users.
- */
 class UsersAdapter(
         private val glideRequests: GlideRequests,
         private val retryCallback: () -> Unit

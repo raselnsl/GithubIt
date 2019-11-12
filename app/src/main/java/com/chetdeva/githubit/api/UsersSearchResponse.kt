@@ -2,10 +2,6 @@ package com.chetdeva.githubit.api
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * @author chetansachdeva
- */
-
 class UsersSearchResponse {
     @SerializedName("total_count")
     var totalCount: Int? = null

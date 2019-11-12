@@ -19,8 +19,7 @@ class GithubPageKeyedDataSource(
     val network = MutableLiveData<NetworkState>()
     val initial = MutableLiveData<NetworkState>()
 
-    override fun loadBefore(params: LoadParams<Int>,
-                            callback: LoadCallback<Int, Item>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Item>) {
         // ignored, since we only ever append to our initial load
     }
 

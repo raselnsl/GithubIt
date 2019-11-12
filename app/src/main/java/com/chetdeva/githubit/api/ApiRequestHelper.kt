@@ -7,9 +7,7 @@ import java.io.IOException
 
 object ApiRequestHelper {
 
-    inline fun <T> syncRequest(request: Call<T>,
-                               onSuccess: (T?) -> Unit,
-                               onError: (String) -> Unit) {
+    inline fun <T> syncRequest(request: Call<T>, onSuccess: (T?) -> Unit, onError: (String) -> Unit) {
         try {
             val response = request.execute()
             onSuccess(response.body())
@@ -18,9 +16,7 @@ object ApiRequestHelper {
         }
     }
 
-    inline fun <T> asyncRequest(request: Call<T>,
-                                crossinline onSuccess: (T?) -> Unit,
-                                crossinline onError: (String) -> Unit) {
+    inline fun <T> asyncRequest(request: Call<T>, crossinline onSuccess: (T?) -> Unit, crossinline onError: (String) -> Unit) {
 
         request.enqueue(object : Callback<T> {
             override fun onFailure(call: Call<T>, t: Throwable) {

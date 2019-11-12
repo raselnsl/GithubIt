@@ -15,8 +15,7 @@ import com.chetdeva.githubit.util.GlideRequests
 /**
  * A RecyclerView ViewHolder that displays a user [Item]
  */
-class UserItemViewHolder(view: View,
-                         private val glide: GlideRequests) : RecyclerView.ViewHolder(view) {
+class UserItemViewHolder(view: View, private val glide: GlideRequests) : RecyclerView.ViewHolder(view) {
 
     private val title: TextView = view.findViewById(R.id.title)
     private val thumbnail: ImageView = view.findViewById(R.id.thumbnail)
@@ -49,8 +48,7 @@ class UserItemViewHolder(view: View,
 
     companion object {
         fun create(parent: ViewGroup, glide: GlideRequests): UserItemViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.user_item, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
             return UserItemViewHolder(view, glide)
         }
     }

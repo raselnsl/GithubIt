@@ -6,13 +6,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/**
- * Github API communication setup via Retrofit.
- */
 interface GithubApi {
-    /**
-     * Get repos ordered by stars.
-     */
+
     @GET("search/users?sort=followers")
     fun searchUsers(@Query("q") query: String,
                     @Query("page") page: Int,

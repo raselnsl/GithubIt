@@ -22,7 +22,6 @@ class HomeViewModel(
     fun refresh() {
         itemResult.value?.refresh?.invoke()
     }
-
     fun showSearchResults(searchQuery: String): Boolean {
         if (this.searchQuery.value == searchQuery) {
             return false
@@ -30,7 +29,6 @@ class HomeViewModel(
         this.searchQuery.value = searchQuery
         return true
     }
-
     fun retry() {
         val listing = itemResult.value
         listing?.retry?.invoke()
