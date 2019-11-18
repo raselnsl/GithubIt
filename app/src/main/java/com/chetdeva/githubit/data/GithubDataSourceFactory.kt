@@ -2,25 +2,20 @@ package com.chetdeva.githubit.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.chetdeva.githubit.api.GithubApiService
-import com.chetdeva.githubit.api.Item
+import com.chetdeva.githubit.api.StationLeaveApiService
+import com.chetdeva.githubit.model.DataStationLeaveHistory
 import java.util.concurrent.Executor
 
-/**
- * A simple data source factory which also provides a way to observe the last created data source.
- * This allows us to channel its network request status etc back to the UI. See the Listing creation
- * in the Repository class.
- */
 class GithubDataSourceFactory(
         private val searchQuery: String,
-        private val githubApi: GithubApiService,
+        private val stationLeaveApiService: StationLeaveApiService,
         private val retryExecutor: Executor
-) : DataSource.Factory<Int, Item>() {
+) : DataSource.Factory<Int, DataStationLeaveHistory>() {
 
     val source = MutableLiveData<GithubPageKeyedDataSource>()
 
-    override fun create(): DataSource<Int, Item> {
-        val source = GithubPageKeyedDataSource(searchQuery, githubApi, retryExecutor)
+    override fun create(): DataSource<Int, DataStationLeaveHistory> {
+        val source = GithubPageKeyedDataSource(searchQuery, stationLeaveApiService, retryExecutor)
         this.source.postValue(source)
         return source
     }

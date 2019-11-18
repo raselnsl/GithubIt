@@ -1,55 +1,43 @@
 package com.chetdeva.githubit.ui
 
-import android.content.Intent
-import android.net.Uri
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.chetdeva.githubit.R
-import com.chetdeva.githubit.api.Item
-import com.chetdeva.githubit.util.GlideRequests
+import com.chetdeva.githubit.model.DataStationLeaveHistory
+import com.google.android.material.textview.MaterialTextView
 
-/**
- * A RecyclerView ViewHolder that displays a user [Item]
- */
-class UserItemViewHolder(view: View, private val glide: GlideRequests) : RecyclerView.ViewHolder(view) {
 
-    private val title: TextView = view.findViewById(R.id.title)
-    private val thumbnail: ImageView = view.findViewById(R.id.thumbnail)
-    private var item: Item? = null
+class UserItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    private val tvStatusValue: MaterialTextView = view.findViewById(R.id.tvStatusValue)
+    private val tvFromDateValue: MaterialTextView = view.findViewById(R.id.tvFromDateValue)
+    private val tvToDateValue: MaterialTextView = view.findViewById(R.id.tvToDateValue)
+    private val tvTotalDays: MaterialTextView = view.findViewById(R.id.tvTotalDays)
 
     init {
         view.setOnClickListener {
-            item?.htmlUrl?.let { url ->
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                view.context.startActivity(intent)
-            }
+//            item?.htmlUrl?.let { url ->
+//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+//                view.context.startActivity(intent)
+//            }
         }
     }
 
-    fun bind(item: Item?) {
-        this.item = item
-        title.text = item?.login ?: "loading"
+    fun bind(data: DataStationLeaveHistory?) {
+        data ?: return
 
-        if (item?.avatarUrl?.startsWith("http") == true) {
-            thumbnail.visibility = View.VISIBLE
-            glide.load(item.avatarUrl)
-                    .centerCrop()
-                    .placeholder(R.drawable.ic_placeholder)
-                    .into(thumbnail)
-        } else {
-            thumbnail.visibility = View.GONE
-            glide.clear(thumbnail)
-        }
+        tvStatusValue.text = data.status ?: "N/A"
+        tvFromDateValue.text = data.fromDate ?: "N/A"
+        tvToDateValue.text = data.toDate ?: "N/A"
+        tvTotalDays.text = data.totalDays ?: "N/A"
     }
 
     companion object {
-        fun create(parent: ViewGroup, glide: GlideRequests): UserItemViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
-            return UserItemViewHolder(view, glide)
+        fun create(parent: ViewGroup): UserItemViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_station_leave_history, parent, false)
+            return UserItemViewHolder(view)
         }
     }
 }

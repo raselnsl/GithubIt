@@ -1,31 +1,29 @@
 package com.chetdeva.githubit.ui
 
+import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import com.chetdeva.githubit.R
-import com.chetdeva.githubit.api.Item
 import com.chetdeva.githubit.data.NetworkState
-import com.chetdeva.githubit.util.GlideRequests
+import com.chetdeva.githubit.model.DataStationLeaveHistory
 
 class UsersAdapter(
-        private val glideRequests: GlideRequests,
         private val retryCallback: () -> Unit
-) : PagedListAdapter<Item, RecyclerView.ViewHolder>(ITEM_COMPARATOR) {
+) : PagedListAdapter<DataStationLeaveHistory, RecyclerView.ViewHolder>(ITEM_COMPARATOR) {
 
     private var networkState: NetworkState? = null
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            R.layout.user_item -> (holder as UserItemViewHolder).bind(getItem(position))
+            R.layout.item_station_leave_history -> (holder as UserItemViewHolder).bind(getItem(position))
             R.layout.network_state_item -> (holder as NetworkStateItemViewHolder).bind(networkState)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.user_item -> UserItemViewHolder.create(parent, glideRequests)
+            R.layout.item_station_leave_history -> UserItemViewHolder.create(parent)
             R.layout.network_state_item -> NetworkStateItemViewHolder.create(parent, retryCallback)
             else -> throw IllegalArgumentException("unknown view type $viewType")
         }
@@ -37,7 +35,7 @@ class UsersAdapter(
         return if (hasExtraRow() && position == itemCount - 1) {
             R.layout.network_state_item
         } else {
-            R.layout.user_item
+            R.layout.item_station_leave_history
         }
     }
 
@@ -62,11 +60,11 @@ class UsersAdapter(
     }
 
     companion object {
-        private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<Item>() {
-            override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean =
+        private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<DataStationLeaveHistory>() {
+            override fun areItemsTheSame(oldItem: DataStationLeaveHistory, newItem: DataStationLeaveHistory): Boolean =
                     oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean =
+            override fun areContentsTheSame(oldItem: DataStationLeaveHistory, newItem: DataStationLeaveHistory): Boolean =
                     oldItem == newItem
         }
     }

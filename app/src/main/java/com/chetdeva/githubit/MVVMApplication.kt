@@ -1,8 +1,8 @@
 package com.chetdeva.githubit
 
 import android.app.Application
-import com.chetdeva.githubit.api.GithubApi
-import com.chetdeva.githubit.api.GithubApiService
+import com.chetdeva.githubit.api.StationLeaveApi
+import com.chetdeva.githubit.api.StationLeaveApiService
 import com.chetdeva.githubit.data.GithubRepository
 import com.chetdeva.githubit.ui.home.HomeViewModelFactory
 import org.kodein.di.Kodein
@@ -25,8 +25,8 @@ class MVVMApplication : Application(), KodeinAware {
     override val kodein = Kodein.lazy {
         import(androidXModule(this@MVVMApplication))
 
-        bind() from singleton { GithubApi.create() }
-        bind() from singleton { GithubApiService(instance()) }
+        bind() from singleton { StationLeaveApi.create() }
+        bind() from singleton { StationLeaveApiService(instance()) }
         bind() from singleton { Executors.newFixedThreadPool(5) }
 
         bind() from singleton { GithubRepository(instance(), instance()) }
